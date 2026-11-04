@@ -1,8 +1,35 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+/* ==========================================
+   THEME VARIABLES
+   ========================================== */
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  color-scheme: light;
+  --background: #f8fafc;
+  --foreground: #0f172a;
+  --surface: #ffffff;
+  --surface-secondary: #f1f5f9;
+  --border: #e2e8f0;
+  --muted: #475569;
+
+  --login-input: #111f33;
+  --login-input-focus: #14243b;
+  --login-input-border: #2a3a50;
+  --login-input-text: #f8fafc;
+  --login-placeholder: #94a8c2;
+}
+
+html[data-theme="dark"] {
+  color-scheme: dark;
+  --background: #0f172a;
+  --foreground: #f1f5f9;
+  --surface: #1e293b;
+  --surface-secondary: #263449;
+  --border: #475569;
+  --muted: #cbd5e1;
 }
 
 @theme inline {
@@ -12,15 +39,341 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* ==========================================
+   GLOBAL
+   ========================================== */
+
+html {
+  min-height: 100%;
 }
 
 body {
-  background: var(--background);
+  min-height: 100vh;
   color: var(--foreground);
+  background-color: var(--background);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+label,
+p {
+  color: inherit;
+}
+
+button,
+a {
+  opacity: 1;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline-color: #2563eb;
+}
+
+/* ==========================================
+   GENERAL FORM CONTROLS — LIGHT MODE
+   ========================================== */
+
+input,
+select,
+textarea {
+  color: #0f172a;
+  background-color: #ffffff;
+  border-color: #d7e0ec;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: #64748b;
+  opacity: 1;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgb(59 130 246 / 14%);
+}
+
+/* ==========================================
+   LOGIN FORM — AMTI NAVY
+   Tambahkan class "login-page" pada elemen <main>
+   halaman login, dan "login-input-wrapper" pada
+   pembungkus field username/password.
+   ========================================== */
+
+.login-page input,
+.login-page select,
+.login-page textarea {
+  color: var(--login-input-text);
+  background-color: var(--login-input);
+  border: 1px solid var(--login-input-border);
+}
+
+.login-page input::placeholder,
+.login-page textarea::placeholder {
+  color: var(--login-placeholder);
+  opacity: 1;
+}
+
+/* Input yang berada di dalam wrapper ikon */
+.login-page input.bg-transparent {
+  color: #f8fafc;
+  background-color: transparent !important;
+  border-color: transparent !important;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.login-page input.bg-transparent::placeholder {
+  color: var(--login-placeholder);
+}
+
+.login-page input.bg-transparent:focus {
+  background-color: transparent !important;
+  border-color: transparent !important;
+  box-shadow: none;
+}
+
+/* Fokus ditampilkan pada wrapper, bukan pada input transparan */
+.login-page .login-input-wrapper:focus-within {
+  border-color: #60a5fa;
+  box-shadow: 0 0 0 3px rgb(59 130 246 / 15%);
+}
+
+/* ==========================================
+   DARK MODE — BASE SURFACES
+   ========================================== */
+
+html[data-theme="dark"] body {
+  color: #f1f5f9;
+  background-color: #0f172a;
+}
+
+html[data-theme="dark"] .bg-white {
+  background-color: #1e293b !important;
+}
+
+html[data-theme="dark"] .bg-slate-50 {
+  background-color: #0f172a !important;
+}
+
+html[data-theme="dark"] .bg-slate-100 {
+  background-color: #263449 !important;
+}
+
+html[data-theme="dark"] .border-slate-200,
+html[data-theme="dark"] .border-slate-300 {
+  border-color: #475569 !important;
+}
+
+/* ==========================================
+   DARK MODE — TEXT
+   ========================================== */
+
+html[data-theme="dark"] .text-slate-950,
+html[data-theme="dark"] .text-slate-900,
+html[data-theme="dark"] .text-slate-800 {
+  color: #f8fafc !important;
+}
+
+html[data-theme="dark"] .text-slate-700 {
+  color: #e2e8f0 !important;
+}
+
+html[data-theme="dark"] .text-slate-600,
+html[data-theme="dark"] .text-slate-500 {
+  color: #cbd5e1 !important;
+}
+
+html[data-theme="dark"] .text-slate-400 {
+  color: #94a3b8 !important;
+}
+
+/* ==========================================
+   DARK MODE — SIDEBAR
+   ========================================== */
+
+html[data-theme="dark"] aside {
+  background-color: #1e293b;
+  border-color: #334155 !important;
+}
+
+html[data-theme="dark"] aside a {
+  color: #e2e8f0;
+}
+
+html[data-theme="dark"] aside a:hover {
+  background-color: #334155 !important;
+}
+
+html[data-theme="dark"] aside a.bg-blue-50 {
+  background-color: #dbeafe !important;
+  color: #1d4ed8 !important;
+}
+
+html[data-theme="dark"] aside .bg-slate-50 {
+  background-color: #111c30 !important;
+}
+
+/* ==========================================
+   DARK MODE — HEADER
+   ========================================== */
+
+html[data-theme="dark"] header {
+  background-color: #1e293b;
+  border-color: #334155 !important;
+}
+
+/* ==========================================
+   DARK MODE — DASHBOARD CARDS
+   ========================================== */
+
+html[data-theme="dark"] article.bg-white {
+  background-color: #1e293b !important;
+  border-color: #475569 !important;
+}
+
+html[data-theme="dark"] .bg-gradient-to-r {
+  background-image: linear-gradient(to right, #1d4ed8, #4338ca) !important;
+}
+
+html[data-theme="dark"] .bg-gradient-to-r .bg-white {
+  background-color: #ffffff !important;
+  color: #1d4ed8 !important;
+  border-color: transparent !important;
+}
+
+/* ==========================================
+   DARK MODE — TABLES
+   ========================================== */
+
+html[data-theme="dark"] thead,
+html[data-theme="dark"] thead.bg-slate-50 {
+  background-color: #111c30 !important;
+  color: #f1f5f9 !important;
+}
+
+html[data-theme="dark"] tbody tr {
+  background-color: #1e293b;
+}
+
+html[data-theme="dark"] tbody tr:hover {
+  background-color: #263449 !important;
+}
+
+html[data-theme="dark"] tbody td {
+  color: #e2e8f0;
+}
+
+html[data-theme="dark"] .divide-y > :not(:last-child) {
+  border-color: #334155 !important;
+}
+
+/* ==========================================
+   DARK MODE — APP FORM CONTROLS
+   Jangan menimpa form login atau input transparan login.
+   ========================================== */
+
+html[data-theme="dark"] body:not(:has(.login-page)) input,
+html[data-theme="dark"] body:not(:has(.login-page)) select,
+html[data-theme="dark"] body:not(:has(.login-page)) textarea {
+  background-color: #111c30;
+  color: #f8fafc;
+  border-color: #475569;
+}
+
+html[data-theme="dark"] body:not(:has(.login-page)) input::placeholder,
+html[data-theme="dark"] body:not(:has(.login-page)) textarea::placeholder {
+  color: #94a3b8;
+  opacity: 1;
+}
+
+html[data-theme="dark"] select option {
+  background-color: #1e293b;
+  color: #f8fafc;
+}
+
+/* ==========================================
+   DARK MODE — LINKS
+   ========================================== */
+
+html[data-theme="dark"] a.text-blue-700,
+html[data-theme="dark"] a.text-blue-800 {
+  color: #93c5fd !important;
+}
+
+html[data-theme="dark"] a:hover {
+  opacity: 1;
+}
+
+/* ==========================================
+   DARK MODE — STATUS BADGES
+   ========================================== */
+
+html[data-theme="dark"] .bg-blue-50,
+html[data-theme="dark"] .bg-blue-100 {
+  background-color: #1e3a8a !important;
+}
+
+html[data-theme="dark"] .text-blue-700,
+html[data-theme="dark"] .text-blue-800 {
+  color: #bfdbfe !important;
+}
+
+html[data-theme="dark"] .bg-violet-50 {
+  background-color: #4c1d95 !important;
+}
+
+html[data-theme="dark"] .text-violet-700 {
+  color: #ddd6fe !important;
+}
+
+html[data-theme="dark"] .bg-emerald-50,
+html[data-theme="dark"] .bg-emerald-100 {
+  background-color: #065f46 !important;
+}
+
+html[data-theme="dark"] .text-emerald-700,
+html[data-theme="dark"] .text-emerald-800 {
+  color: #a7f3d0 !important;
+}
+
+/* ==========================================
+   DARK MODE — NOTIFICATIONS
+   ========================================== */
+
+html[data-theme="dark"] .bg-amber-50 {
+  background-color: #422006 !important;
+}
+
+html[data-theme="dark"] .border-amber-200 {
+  border-color: #92400e !important;
+}
+
+html[data-theme="dark"] .text-amber-900 {
+  color: #fde68a !important;
+}
+
+/* ==========================================
+   DARK MODE — THEME TOGGLE
+   ========================================== */
+
+html[data-theme="dark"] button.border-slate-300 {
+  border-color: #64748b !important;
+}
+
+/* ==========================================
+   FOOTER
+   ========================================== */
+
+html[data-theme="dark"] footer {
+  color: #94a3b8 !important;
 }
